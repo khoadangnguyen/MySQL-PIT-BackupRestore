@@ -32,7 +32,7 @@ SOURCE world_mysql_update_A.sql;
 -- Verify the insertion of Canada-related records
 SELECT * FROM countrylanguage WHERE countrycode='CAN';
 
--- Create a full logical backup of the current state of your whole world database
+-- Create a full logical backup of the current state of my world database
 -- --flush-logs: Flush the MySQL server log files before starting the dump
 -- https://dev.mysql.com/doc/refman/8.4/en/mysqldump.html#option_mysqldump_flush-logs
 mysqldump -h 127.0.0.1 -P 3306 --user=root --password --flush-logs --databases world > world_mysql_full_backup.sql
@@ -42,8 +42,8 @@ mysqldump -h 127.0.0.1 -P 3306 --user=root --password --flush-logs --databases w
 SELECT * FROM city WHERE countrycode='CAN';
 
 -- This means Canada related records are currently absent from the table.
--- Run the update script (world_mysql_update_B.sql) to insert the records you were looking for
--- Note: record local time zone before executing so that later we can use it to perform point-in-time recovery
+-- Run the update script (world_mysql_update_B.sql) to insert the records I was looking for
+-- Note: record local time zone before executing so that later I can use it to perform point-in-time recovery
 SOURCE world_mysql_update_B.sql;
 
 -- Verify the insertion of Canada-related records
@@ -79,5 +79,5 @@ mysql -h 127.0.0.1 -P 3306 --user=root --password --execute="SELECT * FROM world
 -- Execute the sql file generated from binary log
 mysql -h 127.0.0.1 -P 3306 --user=root --password < binlogfile.sql
 
--- Re-verify if you have the updates from the update script (world_mysql_update_B.sql)
+-- Re-verify if I have the updates from the update script (world_mysql_update_B.sql)
 mysql -h 127.0.0.1 -P 3306 --user=root --password --execute="SELECT * FROM world.city WHERE countrycode='CAN';"
